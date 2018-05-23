@@ -259,7 +259,7 @@ public class LetvWatcher extends com.letv.cases.common.LetvWatcher {
     //关闭开通会员提示
     public static final UiWatcher SeelaterWatcher = new UiWatcher() {
         public boolean checkForCondition() {
-            UiObject2 close = phone.findObject(By.text(Pattern.compile("稍后再看|忽略|等等再看|立马参与")));
+            UiObject2 close = phone.findObject(By.text(Pattern.compile("稍后再看|忽略|等等再看|立马参与|收下啦")));
             if (close != null) {
                 close.click();
                 SystemClock.sleep(2000);
@@ -286,6 +286,7 @@ public class LetvWatcher extends com.letv.cases.common.LetvWatcher {
                         for (int j = 0; j < 62; j++) {
                             UiObject2 next = phone.findObject(By.text("下个宝藏已经出现"));
                             if (next != null) {
+                                SystemClock.sleep(1000);
                                 UiObject2 read = phone.findObject(By.text("继续阅读"));
                                 read.click();
                                 SystemClock.sleep(4000);
@@ -295,10 +296,10 @@ public class LetvWatcher extends com.letv.cases.common.LetvWatcher {
                                 if (close != null) {
                                     close.click();
                                     SystemClock.sleep(2000);
-                                    break;
                                 }
+                                break;
                             }
-                            SystemClock.sleep(2000);
+                            SystemClock.sleep(1000);
                         }
                     }
                 }

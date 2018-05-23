@@ -11,8 +11,10 @@ import android.os.SystemClock;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.StaleObjectException;
+import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.UiObjectNotFoundException;
+import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.UiWatcher;
 import android.util.Log;
 
@@ -267,7 +269,7 @@ public class Signin extends LetvTestCase{
         sleepInt(1);
         phone.swipe((int)(phone.getDisplayWidth()*0.5),(int)(phone.getDisplayHeight()*0.2),(int)(phone.getDisplayWidth()*0.5),(int)(phone.getDisplayHeight()*0.8),15);
         sleepInt(5);
-        for(int k=0;k<15;k++) {
+        for(int k=0;k<8;k++) {
             phone.click((int)(phone.getDisplayWidth()*0.5),(int)(phone.getDisplayHeight()*0.5));
             sleepInt(2);
             for (int i = 0; i < 3; i++) {
@@ -1418,71 +1420,63 @@ public class Signin extends LetvTestCase{
         phone.pressHome();
         sleepInt(1);
 //        callShell("am start -n com.cashtoutiao/com.cashtoutiao.account.ui.main.MainTabActivity");
-        UiObject2 huitoutiao=phone.findObject(By.text("中青看点"));
+        UiObject2 huitoutiao = phone.findObject(By.text("中青看点"));
         huitoutiao.click();
         sleepInt(10);
-        for(int i=0;i<3;i++) {
-            UiObject2 tuijian=phone.findObject(By.text("推荐"));
-            if (tuijian==null) {
+        for (int i = 0; i < 3; i++) {
+            UiObject2 tuijian = phone.findObject(By.text("推荐"));
+            if (tuijian == null) {
                 phone.pressBack();
                 sleepInt(1);
-            }else break;
+            } else break;
         }
         UiObject2 fresh = phone.findObject(By.text("首页"));
         if (fresh != null) {
             fresh.click();
             sleepInt(3);
         }
-        String[] names={"推荐","热点","娱乐","健康","美文","笑话","育儿"};
-        int name=getRandom1(names.length);
-        Log.i(TAG, "testHuiTouTiao: name"+name+names[name]);
-        phone.swipe((int)(phone.getDisplayWidth()*0.2),(int)(phone.getDisplayHeight()*0.11),(int)(phone.getDisplayWidth()*0.8),(int)(phone.getDisplayHeight()*0.11),15);
-        for(int q=0;q<4;q++) {
+        String[] names = {"推荐", "热点", "娱乐", "健康"};
+        int name = getRandom1(names.length);
+        Log.i(TAG, "testHuiTouTiao: name" + name + names[name]);
+        phone.swipe((int) (phone.getDisplayWidth() * 0.2), (int) (phone.getDisplayHeight() * 0.11), (int) (phone.getDisplayWidth() * 0.8), (int) (phone.getDisplayHeight() * 0.11), 15);
+/*        for(int q=0;q<4;q++) {
             UiObject2 type = phone.findObject(By.text(names[name]));
             if (type==null) {
                 phone.swipe((int)(phone.getDisplayWidth()*0.72),(int)(phone.getDisplayHeight()*0.11),(int)(phone.getDisplayWidth()*0.57),(int)(phone.getDisplayHeight()*0.11),30);
             }else break;
-        }
-        sleepInt(4);
+        }*/
+        sleepInt(1);
         UiObject2 type = waitForObj(By.text(names[name]));
         verify("beijing not exists", type != null);
         type.click();
         sleepInt(1);
-        phone.swipe((int)(phone.getDisplayWidth()*0.2),(int)(phone.getDisplayHeight()*0.25),(int)(phone.getDisplayWidth()*0.2),(int)(phone.getDisplayHeight()*0.8),15);
-        sleepInt(5);
-        for(int k=0;k<6;k++) {
-            List<UiObject2> lists = phone.findObject(By.clazz("android.widget.ListView")).getChildren();
-            for (int q = 0; q < lists.size() - 1; q++) {
-                UiObject2 a = lists.get(q).findObject(By.text(Pattern.compile("广告|立即下载")));
-                if (a == null) {
-                    lists.get(q).click();
+        for (int k = 0; k < 15; k++) {
+            phone.swipe((int) (phone.getDisplayWidth() * 0.2), (int) (phone.getDisplayHeight() * 0.25), (int) (phone.getDisplayWidth() * 0.2), (int) (phone.getDisplayHeight() * 0.8), 15);
+            sleepInt(5);
+            phone.click((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.25));
+            sleepInt(1);
+            for (int i = 0; i < 3; i++) {
+                if (!phone.getCurrentPackageName().equals("cn.youth.news")) {
+                    phone.pressBack();
                     sleepInt(1);
-                    for (int i = 0; i < 3; i++) {
-                        if (!phone.getCurrentPackageName().equals("cn.youth.news")) {
-                            phone.pressBack();
-                            sleepInt(1);
-                        } else break;
-                    }
-                    sleepInt(6);
-                    phone.swipe((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.92), (int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.06), 100);
-                    sleepInt(1);
-                    verify("adf", phone.getCurrentPackageName().equals("cn.youth.news"));
-                    phone.click((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.728));
-                    sleepInt(1);
-                    for (int j = 0; j < 4; j++) {
-                        phone.swipe((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.7), (int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.2), 10);
-                        sleepInt(3);
-                        phone.swipe((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.7), (int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.2), 10);
-                        sleepInt(2);
-                    }
-                }
-                sleepInt(4);
-                press_back(1);
-                UiObject2 tuijian = phone.findObject(By.text("推荐"));
-                if (tuijian == null) press_back(1);
+                } else break;
             }
-            phone.swipe((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.8), (int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.2), 30);
-            sleepInt(3);
+            phone.swipe((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.92), (int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.06), 100);
+            sleepInt(1);
+            verify("adf", phone.getCurrentPackageName().equals("cn.youth.news"));
+            phone.click((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.728));
+            sleepInt(1);
+            for (int j = 0; j < 1; j++) {
+                phone.swipe((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.7), (int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.2), 2);
+                sleepInt(1);
+                phone.swipe((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.7), (int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.2), 2);
+                sleepInt(8);
+            }
+            sleepInt(4);
+            press_back(1);
+            UiObject2 tuijian = phone.findObject(By.text("我的"));
+            if (tuijian == null) press_back(1);
+            sleepInt(1);
         }
     }
     @Test
@@ -1493,8 +1487,9 @@ public class Signin extends LetvTestCase{
         huitoutiao.click();
         sleepInt(10);
         for(int i=0;i<3;i++) {
-            UiObject2 tuijian=phone.findObject(By.text("推荐"));
+            UiObject2 tuijian=phone.findObject(By.text("我的"));
             if (tuijian==null) {
+                Log.i(TAG, "testWeiLi: 1111");
                 phone.pressBack();
                 sleepInt(1);
             }else break;
@@ -1520,7 +1515,7 @@ public class Signin extends LetvTestCase{
         phone.click((int) (phone.getDisplayWidth() * 0.11), (int) (phone.getDisplayHeight() * 0.06));
         sleepInt(5);
         press_back(1);
-        String[] names={"推荐","推荐","命理","情感","养生","娱乐","娱乐"};
+        String[] names={"推荐","社会","情感","搞笑","娱乐"};
         int name=getRandom1(names.length);
         UiObject2 type = waitForObj(By.text(names[name]));
         verify(names[name]+"not exists", type != null);
@@ -1536,52 +1531,57 @@ public class Signin extends LetvTestCase{
                 press_back(1);
             }
             List<UiObject2> lists = phone.findObject(By.clazz("android.support.v7.widget.RecyclerView")).getChildren();
-            for (int q = 0; q < lists.size() - 1; q++) {
-                UiObject2 a = lists.get(q).findObject(By.text(Pattern.compile("广告|立即下载")));
-                if (a == null) {
-                    jinbi = phone.findObject(By.text("领金币"));
-                    if(jinbi!=null){
-                        jinbi.click();
-                        sleepInt(1);
-                        press_back(1);
-                        break;
-                    }
-                    lists.get(q).click();
-                    sleepInt(1);
-                    for (int i = 0; i < 3; i++) {
-                        if (!phone.getCurrentPackageName().equals("cn.weli.story")) {
-                            phone.pressBack();
+            for (int q = 0; q < lists.size(); q++) {
+                try {
+                    UiObject2 a = lists.get(q).findObject(By.text(Pattern.compile("广告|立即下载")));
+                    if (a == null) {
+                        jinbi = phone.findObject(By.text("领金币"));
+                        if (jinbi != null) {
+                            jinbi.click();
                             sleepInt(1);
-                        } else break;
-                    }
-                    sleepInt(6);
-                    UiObject2 cion=phone.findObject(By.res("cn.weli.story:id/rl_read_coin"));
-                    if(cion!=null) {
-                        cion.click();
-                        UiObject2 today=waitForObj(By.text("今天"));
-                            if (today!=null&&today.getParent().hasObject(By.text(Pattern.compile("阅读文章60分钟，获得3600金币")))) {
+                            press_back(1);
+                            break;
+                        }
+                        lists.get(q).click();
+                        sleepInt(1);
+                        for (int i = 0; i < 3; i++) {
+                            if (!phone.getCurrentPackageName().equals("cn.weli.story")) {
+                                phone.pressBack();
+                                sleepInt(1);
+                            } else break;
+                        }
+                        sleepInt(5);
+                        UiObject2 cion = phone.findObject(By.res("cn.weli.story:id/rl_read_coin"));
+                        if (cion != null && k==0&&q==0) {
+                            cion.click();
+                            UiObject2 today = waitForObj(By.text("今天"));
+                            if (today != null && today.getParent().hasObject(By.text(Pattern.compile("阅读文章60分钟，获得3600金币.*")))) {
                                 break lable;
                             } else press_back(1);
-                    }
-                    phone.swipe((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.92), (int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.06), 100);
-                    sleepInt(1);
-                    verify("adf", phone.getCurrentPackageName().equals("cn.weli.story"));
-                    sleepInt(8);
-                    for (int j = 0; j < 15; j++) {
-                        phone.swipe((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.7), (int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.6), 30);
-                        sleepInt(4);
-                        reading=phone.findObject(By.text("知道了"));
-                        if(reading!=null){
-                            reading.click();
-                            sleepInt(1);
                         }
+                        phone.swipe((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.92), (int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.06), 100);
+                        sleepInt(1);
                         verify("adf", phone.getCurrentPackageName().equals("cn.weli.story"));
+                        sleepInt(3);
+                        for (int j = 0; j < 17; j++) {
+                            phone.swipe((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.7), (int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.6), 30);
+                            sleepInt(4);
+                            reading = phone.findObject(By.text("知道了"));
+                            if (reading != null) {
+                                reading.click();
+                                sleepInt(1);
+                            }
+                            verify("adf", phone.getCurrentPackageName().equals("cn.weli.story"));
+                        }
+                        press_back(1);
+                        UiObject2 tuijian = waitForObj(By.text("我的"));
+                    if (tuijian == null) press_back(1);
                     }
-            }
-                sleepInt(4);
-                press_back(1);
-                UiObject2 tuijian = phone.findObject(By.text("推荐"));
-                if (tuijian == null) press_back(1);
+                }catch (StaleObjectException e){
+                    phone.waitForWindowUpdate("cn.weli.story",10000);
+                    //UiObject2 a = lists.get(q).findObject(By.text(Pattern.compile("广告|立即下载")));
+                    continue;
+                }
             }
             phone.swipe((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.8), (int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.2), 30);
             sleepInt(3);
@@ -1738,7 +1738,7 @@ public class Signin extends LetvTestCase{
         String[] names={"推荐","热点","北京","娱乐"};
         int name=getRandom1(names.length);
         sleepInt(4);
-        phone.swipe((int)(phone.getDisplayWidth()*0.12),(int)(phone.getDisplayHeight()*0.2),(int)(phone.getDisplayWidth()*0.12),(int)(phone.getDisplayHeight()*0.8),30);
+        phone.swipe((int)(phone.getDisplayWidth()*0.2),(int)(phone.getDisplayHeight()*0.12),(int)(phone.getDisplayWidth()*0.8),(int)(phone.getDisplayHeight()*0.12),30);
         sleepInt(1);
         Log.i(TAG, "testHuiTouTiao: name"+name+names[name]);
         UiObject2 type = waitForObj(By.text(names[name]));
@@ -1775,10 +1775,11 @@ public class Signin extends LetvTestCase{
                             sleepInt(1);
                             readAll.click();
                             sleepInt(1);
-                            for(int z=0;z<6;z++){
-                                phone.swipe((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.8), (int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.2), 15);
-                                sleepInt(2);
+                            for(int z=0;z<5;z++){
+                                phone.swipe((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.8), (int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.2), 10);
+                                sleepInt(1);
                             }
+                            break;
                         }
                     }
                     press_back(1);
