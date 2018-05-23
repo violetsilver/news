@@ -1571,6 +1571,8 @@ public class Signin extends LetvTestCase{
                                 reading.click();
                                 sleepInt(1);
                             }
+                            reading = phone.findObject(By.text("本篇奖励已上限.*"));
+                            if (reading != null)break;
                             verify("adf", phone.getCurrentPackageName().equals("cn.weli.story"));
                         }
                         press_back(1);
@@ -1937,10 +1939,8 @@ public class Signin extends LetvTestCase{
                             readAll.click();
                             sleepInt(1);
                         }
-
-                        UiObject2 stop = phone.findObject(By.desc(Pattern.compile("热点新闻.*")));
                         UiObject2 circle = phone.findObject(By.res("com.expflow.reading:id/IvAwardAnim"));
-                        if (circle == null || (stop != null && j > 5)) {
+                        if (circle == null) {
                             break;
                         }
                     }

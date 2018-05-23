@@ -273,7 +273,7 @@ public class LetvWatcher extends com.letv.cases.common.LetvWatcher {
     //领取金币
     public static final UiWatcher JinbiWatcher = new UiWatcher() {
         public boolean checkForCondition() {
-            UiObject2 close = phone.findObject(By.text("领金币"));
+            UiObject2 close = phone.findObject(By.text(Pattern.compile("领金币|领取金币")));
             if (close != null) {
                 close.click();
                 SystemClock.sleep(2000);
@@ -281,7 +281,7 @@ public class LetvWatcher extends com.letv.cases.common.LetvWatcher {
                 if (gotit != null) gotit.click();
                 SystemClock.sleep(4000);
                 for(int k=0;k<20;k++) {
-                    UiObject2 wait = phone.findObject(By.text(Pattern.compile("距离下个宝藏出现还有.*")));
+                    UiObject2 wait = phone.findObject(By.text(Pattern.compile("距离下个宝藏出现还有.*|下个宝藏已经出现")));
                     if (wait != null) {
                         for (int j = 0; j < 62; j++) {
                             UiObject2 next = phone.findObject(By.text("下个宝藏已经出现"));
@@ -290,13 +290,13 @@ public class LetvWatcher extends com.letv.cases.common.LetvWatcher {
                                 UiObject2 read = phone.findObject(By.text("继续阅读"));
                                 read.click();
                                 SystemClock.sleep(4000);
-                                phone.swipe((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.2), (int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.8), 10);
+                                phone.swipe((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.8), (int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.2), 10);
                                 SystemClock.sleep(4000);
-                                close = phone.findObject(By.text("领金币"));
+/*                                close = phone.findObject(By.text("领金币"));
                                 if (close != null) {
                                     close.click();
                                     SystemClock.sleep(2000);
-                                }
+                                }*/
                                 break;
                             }
                             SystemClock.sleep(1000);

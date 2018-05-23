@@ -216,16 +216,34 @@ public class LetvTestCase {
 //                break;
 //        }
 ////        openWifiTeardown();
-        if(Build.DEVICE.equals("pisces")){
-            for(int i=0;i<4;i++){
-                press_back(1);
-                UiObject2 exit=phone.findObject(By.text("退出"));
-                if(exit!=null){
-                    exit.click();
+        if(Build.DEVICE.equals("pisces")||Build.DEVICE.equals("HWPRA-H")){
+            if(!isScreenLocked(InstrumentationRegistry.getContext())){
+                callShell("input keyevent 26");
+                sleepInt(1);
+                phone.swipe((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.7), (int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.2), 15);
+                sleepInt(1);
+                phone.swipe((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.7), (int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.2), 15);
+                sleepInt(1);
+                UiObject2 p6=waitForObj(By.text("6"));
+                if(p6!=null) {
+                    p6.click();
+                    UiObject2 p9 = waitForObj(By.text("9"));
+                    p9.click();
+                    UiObject2 p61 = waitForObj(By.text("6"));
+                    p61.click();
+                    UiObject2 p91 = waitForObj(By.text("9"));
+                    p91.click();
                     sleepInt(1);
                 }
-            }
-            press_home(1);
+                for(int i=0;i<4;i++){
+                    press_back(1);
+                    UiObject2 exit=phone.findObject(By.text("退出"));
+                    if(exit!=null){
+                        exit.click();
+                        sleepInt(1);
+                    }
+                }                press_home(1);
+            };
         }else gotoHomeScreen();
 }
 
