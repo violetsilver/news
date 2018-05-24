@@ -139,9 +139,9 @@ public class LetvTestCase {
                     p91.click();
                     sleepInt(1);
                 }
-                press_back(4);
-                press_home(1);
             };
+            press_back(4);
+            press_home(1);
         }else gotoHomeScreen();
     }
 
@@ -235,15 +235,16 @@ public class LetvTestCase {
                     p91.click();
                     sleepInt(1);
                 }
-                for(int i=0;i<4;i++){
-                    press_back(1);
-                    UiObject2 exit=phone.findObject(By.text("退出"));
-                    if(exit!=null){
-                        exit.click();
-                        sleepInt(1);
-                    }
-                }                press_home(1);
             };
+            for(int i=0;i<4;i++){
+                press_back(1);
+                UiObject2 exit=phone.findObject(By.text("退出"));
+                if(exit!=null){
+                    exit.click();
+                    sleepInt(1);
+                }
+            };
+            press_home(1);
         }else gotoHomeScreen();
 }
 
