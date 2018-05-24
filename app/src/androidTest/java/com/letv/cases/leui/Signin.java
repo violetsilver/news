@@ -401,7 +401,7 @@ public class Signin extends LetvTestCase{
                     }
                     press_back(1);
                 }catch (StaleObjectException e){
-                    phone.waitForWindowUpdate("cn.weli.story",10000);
+                    phone.waitForWindowUpdate("com.kuaima.browser",10000);
                     continue;
                 }
             }
@@ -904,7 +904,7 @@ public class Signin extends LetvTestCase{
                 sleepInt(2);
                 phone.swipe(500,25,500,1600,20);
             }catch (StaleObjectException e){
-                phone.waitForWindowUpdate("cn.weli.story",10000);
+                phone.waitForWindowUpdate("com.jifen.qukan",10000);
                 continue;
             }
 
@@ -1741,9 +1741,6 @@ public class Signin extends LetvTestCase{
     }
     @Test
     public void testDongFang() throws UiObjectNotFoundException, RemoteException {
-        phone.pressHome();
-        sleepInt(1);
-//        callShell("am start -n com.cashtoutiao/com.cashtoutiao.account.ui.main.MainTabActivity");
         UiObject2 huitoutiao=phone.findObject(By.text("东方头条"));
         huitoutiao.click();
         sleepInt(10);
@@ -1763,59 +1760,66 @@ public class Signin extends LetvTestCase{
         String[] names={"推荐","热点","北京","娱乐"};
         int name=getRandom1(names.length);
         sleepInt(4);
-        phone.swipe((int)(phone.getDisplayWidth()*0.2),(int)(phone.getDisplayHeight()*0.12),(int)(phone.getDisplayWidth()*0.8),(int)(phone.getDisplayHeight()*0.12),30);
+        phone.swipe((int)(phone.getDisplayWidth()*0.2),(int)(phone.getDisplayHeight()*0.12),(int)(phone.getDisplayWidth()*0.5),(int)(phone.getDisplayHeight()*0.12),30);
         sleepInt(1);
         Log.i(TAG, "testHuiTouTiao: name"+name+names[name]);
         UiObject2 type = waitForObj(By.text(names[name]));
-        verify(names[name]+"not exists", type != null);
-        type.click();
-        sleepInt(1);
+        if(type!=null) {
+            type.click();
+            sleepInt(1);
+        }
         UiObject2 fresh = phone.findObject(By.text("刷新"));
         if (fresh != null) {
             fresh.click();
             sleepInt(3);
         }
-        phone.swipe((int)(phone.getDisplayWidth()*0.5),(int)(phone.getDisplayHeight()*0.2),(int)(phone.getDisplayWidth()*0.5),(int)(phone.getDisplayHeight()*0.8),15);
+        phone.swipe((int)(phone.getDisplayWidth()*0.5),(int)(phone.getDisplayHeight()*0.2),(int)(phone.getDisplayWidth()*0.5),(int)(phone.getDisplayHeight()*0.8),30);
         sleepInt(5);
-        for(int k=0;k<10;k++) {
+        for(int k=0;k<5;k++) {
             UiObject2 ue = phone.findObject(By.res(Pattern.compile("com.songheng.eastnews:id/vw|com.songheng.eastnews:id/ue|com.songheng.eastnews:id/v4")));
             int id1 = parseInt(ue.getText());
             List<UiObject2> lists=phone.findObject(By.clazz(Pattern.compile("android.widget.ListView|android.support.v7.widget.RecyclerView"))).getChildren();
             for(int q=0;q<lists.size()-1;q++) {
-                UiObject2 a = lists.get(q).findObject(By.text(Pattern.compile("广告|视频|点击下载.*")));
-                if (a == null) {
-                    if(!(k==0&&q==0)) {
-                        lists.get(q).click();
-                        sleepInt(5);
-                    }else continue;
-                    for (int j = 0; j < 5; j++) {
-                        phone.swipe((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.8), (int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.2), 30);
-                        sleepInt(2);
-                        phone.swipe((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.8), (int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.2), 30);
-                        sleepInt(2);
-                        verify("adfasd", phone.getCurrentPackageName().equals("com.songheng.eastnews"));
-                        UiObject2 readAll = phone.findObject(By.desc(Pattern.compile("展开全文.*")));
-                        if (readAll != null) {
-                            phone.swipe((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.7), (int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.5), 30);
-                            sleepInt(1);
-                            readAll.click();
-                            sleepInt(1);
-                            for(int z=0;z<5;z++){
-                                phone.swipe((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.8), (int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.2), 10);
+                try {
+                    UiObject2 a = lists.get(q).findObject(By.text(Pattern.compile("广告|视频|点击下载.*")));
+                    if (a == null) {
+                        if (!(k == 0 && q == 0)) {
+                            lists.get(q).click();
+                            sleepInt(5);
+                        } else continue;
+                        for (int j = 0; j < 5; j++) {
+                            phone.swipe((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.8), (int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.2), 30);
+                            sleepInt(2);
+                            phone.swipe((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.8), (int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.2), 30);
+                            sleepInt(2);
+                            verify("adfasd", phone.getCurrentPackageName().equals("com.songheng.eastnews"));
+                            UiObject2 readAll = phone.findObject(By.desc(Pattern.compile("展开全文.*")));
+                            if (readAll != null) {
+                                phone.swipe((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.7), (int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.5), 30);
                                 sleepInt(1);
+                                readAll.click();
+                                sleepInt(1);
+                                for (int z = 0; z < 5; z++) {
+                                    phone.swipe((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.8), (int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.2), 10);
+                                    sleepInt(1);
+                                }
+                                break;
                             }
-                            break;
                         }
+                        press_back(1);
                     }
-                    press_back(1);
+                }catch (StaleObjectException e){
+                    phone.waitForWindowUpdate("com.songheng.eastnews",10000);
+                    continue;
                 }
             }
+            phone.swipe((int)(phone.getDisplayWidth()*0.2),(int)(phone.getDisplayHeight()*0.12),(int)(phone.getDisplayWidth()*0.8),(int)(phone.getDisplayHeight()*0.12),30);
+            sleepInt(1);
             ue = phone.findObject(By.res(Pattern.compile("com.songheng.eastnews:id/vw|com.songheng.eastnews:id/ue|com.songheng.eastnews:id/v4")));
             int id2 = parseInt(ue.getText());
             if(id2==id1) break;
-            phone.swipe((int)(phone.getDisplayWidth()*0.5),(int)(phone.getDisplayHeight()*0.67),(int)(phone.getDisplayWidth()*0.5),(int)(phone.getDisplayHeight()*0.5),30);
+            phone.swipe((int)(phone.getDisplayWidth()*0.5),(int)(phone.getDisplayHeight()*0.85),(int)(phone.getDisplayWidth()*0.5),(int)(phone.getDisplayHeight()*0.2),30);
             sleepInt(1);
-
         }
     }
 
