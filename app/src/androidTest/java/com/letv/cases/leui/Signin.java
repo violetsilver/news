@@ -716,6 +716,8 @@ public class Signin extends LetvTestCase{
                     sleepInt(3);
                     phone.swipe((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.55), (int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.6), 30);
                     sleepInt(1);
+                    UiObject2 tips=phone.findObject(By.text(Pattern.compile("本篇奖励已达上限.*")));
+                    if(tips!=null)break;
                     verify("没有在悦头条界面", phone.getCurrentPackageName().equals("com.kuaima.browser"));
                     phone.swipe((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.8), (int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.2), 10);
                     sleepInt(2);
