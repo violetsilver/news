@@ -487,11 +487,10 @@ public class Signin extends LetvTestCase{
         UiObject2 huitoutiao = phone.findObject(By.text("微鲤头条"));
         huitoutiao.click();
         sleepInt(10);
-        UiObject2 fresh = phone.findObject(By.text("头条"));
-        if (fresh != null) {
-            fresh.click();
-            sleepInt(3);
-        }
+        press_back(1);
+        UiObject2 fresh = waitForObj(By.text("头条"));
+        fresh.click();
+        sleepInt(1);
         UiObject2 box = phone.findObject(By.res("cn.weli.story:id/rl_treasure_box"));
         if (box != null) {
             box.click();
@@ -502,7 +501,7 @@ public class Signin extends LetvTestCase{
             reading.click();
             sleepInt(1);
         }
-        UiObject2 mine = phone.findObject(By.text("我的"));
+/*        UiObject2 mine = phone.findObject(By.text("我的"));
         if(mine==null){
             press_back(1);
             Log.i(TAG, "testWeiLiSearch: 111");
@@ -519,8 +518,8 @@ public class Signin extends LetvTestCase{
             UiObject2 searchmy = phone.findObject(By.text("搜索关键词"));
             searchmy.click();
             sleepInt(1);
-        }
-        searchLi = phone.findObject(By.text("立即搜索"));
+        }*/
+        UiObject2 searchLi = waitForObj(By.res("cn.weli.story:id/et_search"));
         searchLi.click();
         sleepInt(2);
         UiObject2 search = phone.findObject(By.res("cn.weli.story:id/edt_tool_search"));
@@ -577,6 +576,7 @@ public class Signin extends LetvTestCase{
                     verify("没有在悦头条界面", progress != null);
                 }
                 press_back(1);
+                sleepInt(2);
                 searchth = phone.findObject(By.text("搜索"));
                 if(searchth==null){
                     press_back(1);
