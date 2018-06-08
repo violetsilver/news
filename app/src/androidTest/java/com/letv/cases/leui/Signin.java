@@ -543,8 +543,11 @@ public class Signin extends LetvTestCase{
                 verify("No search field", searchInput != null);
                 int name = getRandom1(names.length);
                 int name1 = getRandom1(names1.length);
-                Log.i(TAG, "testWeiLiSearch: name1"+name1+"/"+names.length+name);
-                searchInput.setText(names[name] + names1[name1]);
+                if(Build.DEVICE.equals("pisces")){
+                    searchInput.setText(Utf7ImeHelper.e(names[name] + names1[name1]));
+                }else {
+                    searchInput.setText(names[name] + names1[name1]);
+                }
                 sleepInt(3);
                 UiObject2 searchth = phone.findObject(By.text("搜索"));
                 searchth.click();
