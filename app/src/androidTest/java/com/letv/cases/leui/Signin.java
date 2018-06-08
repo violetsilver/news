@@ -543,10 +543,14 @@ public class Signin extends LetvTestCase{
                 verify("No search field", searchInput != null);
                 int name = getRandom1(names.length);
                 int name1 = getRandom1(names1.length);
+                String content=names[name] + names1[name1];
                 if(Build.DEVICE.equals("pisces")){
-                    searchInput.setText(Utf7ImeHelper.e(names[name] + names1[name1]));
+                    searchInput.clear();
+                    searchInput.clear();
+                    sleepInt(2);
+                    searchInput.setText(Utf7ImeHelper.e(content));
                 }else {
-                    searchInput.setText(names[name] + names1[name1]);
+                    searchInput.setText(content);
                 }
                 sleepInt(3);
                 UiObject2 searchth = phone.findObject(By.text("搜索"));
@@ -693,11 +697,12 @@ public class Signin extends LetvTestCase{
                 UiObject2 searchInput = waitForObj(By.clazz("android.widget.EditText"));
                 int name = getRandom1(names.length);
                 int name1 = getRandom1(names1.length);
+                String content=names[name] + names1[name1];
                 verify("searchInput not exit",searchInput!=null);
                 if(Build.DEVICE.equals("pisces")){
-                    searchInput.setText(Utf7ImeHelper.e(names[name] + names1[name1]));
+                    searchInput.setText(Utf7ImeHelper.e(content));
                 }else {
-                    searchInput.setText(names[name] + names1[name1]);
+                    searchInput.setText(content);
                 }
                 sleepInt(3);
                 UiObject2 searchth = phone.findObject(By.text("搜索"));
