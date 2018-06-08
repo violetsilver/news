@@ -374,7 +374,7 @@ public class Signin extends LetvTestCase{
                         sleepInt(5);
                         UiObject2 gress = phone.findObject(By.res("com.kuaima.browser:id/iv_progress"));
                         if (gress != null) {
-                            for (int j = 0; j < 4; j++) {
+                            for (int j = 0; j < 3; j++) {
                                 sleepInt(1);
                                 verify("没有在悦头条界面", phone.getCurrentPackageName().equals("com.kuaima.browser"));
                                 phone.swipe((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.8), (int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.2), 5);
@@ -390,7 +390,8 @@ public class Signin extends LetvTestCase{
                                 UiObject2 searchInput = waitForObj(By.clazz("android.widget.EditText"));
                                 verify("No search field", searchInput != null);
                                 sleepInt(2);
-                                searchInput.setText("亲们互惠互赞哈哈\n亲测都能提现到账：" + "\n" + "快马小报邀请码：194404" + "\n" + "悦头条邀请码:23591804" + "\n" + "惠头条邀请码:27704076");
+                                /*searchInput.setText("亲们互惠互赞哈哈\n亲测都能提现到账：" + "\n" + "快马小报邀请码：194404" + "\n" + "悦头条邀请码:23591804" + "\n" + "惠头条邀请码:27704076");*/
+                                searchInput.setText("路过留赞谢谢啦");
                                 sleepInt(2);
                                 UiObject2 send = phone.findObject(By.res("com.kuaima.browser:id/fl_comm"));
                                 send.click();
