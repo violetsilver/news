@@ -217,7 +217,7 @@ public class LetvTestCase {
 //        }
 ////        openWifiTeardown();
         if(Build.DEVICE.equals("pisces")||Build.DEVICE.equals("HWPRA-H")){
-            if(!isScreenLocked(InstrumentationRegistry.getContext())){
+            if(!isScreenLocked(InstrumentationRegistry.getContext())&&Build.DEVICE.equals("HWPRA-H")){
                 callShell("input keyevent 26");
                 sleepInt(1);
                 phone.swipe((int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.7), (int) (phone.getDisplayWidth() * 0.5), (int) (phone.getDisplayHeight() * 0.2), 15);
