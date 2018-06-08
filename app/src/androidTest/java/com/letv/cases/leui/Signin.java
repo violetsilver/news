@@ -545,9 +545,9 @@ public class Signin extends LetvTestCase{
                 int name1 = getRandom1(names1.length);
                 String content=names[name] + names1[name1];
                 if(Build.DEVICE.equals("pisces")){
-                    searchInput.clear();
-                    searchInput.clear();
-                    sleepInt(2);
+                    UiObject2 clear=phone.findObject(By.res("cn.weli.story:id/view_clear"));
+                    clear.click();
+                    searchInput = waitForObj(By.clazz("android.widget.EditText"));
                     searchInput.setText(Utf7ImeHelper.e(content));
                 }else {
                     searchInput.setText(content);
