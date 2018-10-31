@@ -27,6 +27,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.List;
 import java.util.Random;
 import java.util.regex.Pattern;
@@ -39,6 +44,8 @@ import static java.lang.Integer.parseInt;
  */
 
 public class Signin extends LetvTestCase{
+    private String appCrawlerClickedFile="/data/local/tmp/app_crawler_clicked.txt";
+
 
    /* @Before
     public void setUp() throws Exception {
@@ -231,6 +238,34 @@ public class Signin extends LetvTestCase{
         sleepInt(4);
     }
 
+
+    @Test
+    public void testfileinput() throws UiObjectNotFoundException{
+        callShell("rm -f "+appCrawlerClickedFile);
+        callShell("touch "+appCrawlerClickedFile);
+        saveClickInfo("this is a test");
+        press_back(1);
+    }
+    private void saveClickInfo(String content) {
+        BufferedWriter out = null;
+        try {
+            Log.i(TAG, "saveClickInfo: 111");
+            out = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(appCrawlerClickedFile, true)));
+            out.write(content+"\n");
+        } catch (Exception e) {
+            Log.i(TAG, "saveClickInfo: 222");
+            e.printStackTrace();
+        } finally {
+            try {
+                if(out!=null){
+                    out.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     @Test
     public void testQukan() throws UiObjectNotFoundException, RemoteException {
         press_home(1);
@@ -398,7 +433,10 @@ public class Signin extends LetvTestCase{
                                 sleepInt(3);
                             }
                         } else m++;
-                        if (m >= 3) break;
+                        if (m >= 3) {
+
+                            break;
+                        }
                     }
                     press_back(1);
                 }catch (StaleObjectException e){

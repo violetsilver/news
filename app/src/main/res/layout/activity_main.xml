@@ -8,28 +8,19 @@
     android:fitsSystemWindows="true"
     tools:context="leui.cases.lev.com.mtbf20.MainActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:theme="@style/AppTheme.AppBarOverlay">
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="180dp"
+        android:text="the button is clicked"
+        android:id="@+id/hellotextView" android:textColor="#00ff00" android:gravity="center"/>
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-    </android.support.design.widget.AppBarLayout>
-
-    <include layout="@layout/content_main"/>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email" />
+        android:id="@+id/runtest"
+        android:text="执行测试"
+        android:onClick="onClick"
+        app:layout_anchorGravity="center_vertical|left"
+        android:layout_gravity="center_vertical|right" />
 
 </android.support.design.widget.CoordinatorLayout>
